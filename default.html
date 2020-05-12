@@ -26,17 +26,36 @@ figured I should think of a generalized solution that'll work going forward.
 <!--
 
 👋🏼 Hey, there! Thanks for checking out the code!
-This piece of this site came from the Neon Jekyll Layouts repo, which is kind of a piece of a theme for Jekyll sites
-like this! Neon is a theme I (Ben Leggiero) invented, which is heavily inspired by Google's Material Design. I tweaked
-it for my needs and to be as much in plain CSS as possible.
+
+{% if site.author %}
+    {%- if site.author.name -%}
+        This site was made by {{ site.author.name }}
+    {%- else -%}
+        This site was made by:
+        {{ site.author }}
+    {%- endif %}
+{%- endif %}
+{% if site.source-code.url %}
+If you want to check out the actual source code of this site, it's published at
+{{ site.source-code.url }}
+{%- endif %}
+
+---
+
+This particular piece of this site came from the Neon Jekyll Layouts repo, which is part of a framework for Jekyll
+sites like this! Neon is a theme I (Ben Leggiero) invented, which is heavily inspired by Google's Material Design. I
+tweaked it for my needs, and is written in plain CSS as much as possible.
 
 If you want to browse through all the current source code or see the history, check these out:
  - Neon Jekyll Layouts: https://github.com/BlueHuskyStudios/Neon-Jekyll-Layouts
  - Neon: https://github.com/BlueHuskyStudios/stylesheets/tree/master/assets/v2/neon
 
-Since I wrote all this code from scratch, I decided to place it under the BH-1-PS license:
+Since I wrote Neon from scratch, I decided to place it under the BH-1-PS license:
 https://github.com/BlueHuskyStudios/Licenses/blob/master/Licenses/BH-1-PS.txt
-Feel free to take this code and use it for your own stuff! Just make sure you let everyone know I wrote the original 😉
+
+Remember that this site might have a different license, so check for that before doing anything that might go against
+it. As for Neon, feel free to take this code and use it for your own stuff! Just make sure you let everyone know I
+wrote the original 😉
 
 -->
 <!DOCTYPE html>
