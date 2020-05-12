@@ -5,16 +5,14 @@ layout: default
 <article class="post">
 {{ content }}
 
-<footer>
-    <ol class="tags   plain   flex-row flex-wrap flex-horiz-center flex-vert-center">
+<footer class="card">
+    <ol class="chips   flex-row flex-wrap flex-horiz-center flex-vert-center">
         {% for tag in page.categories %}
-        <li><span class="tag" data-tag-name="{{ tag }}">{{ tag }}</span></li>
+        <li><span class="chip" data-tag-name="{{ tag }}">{{ tag }}</span></li>
         {% endfor %}
     </ol>
-</footer>
 
-<footer class="flex-row flex-horiz-space-between flex-vert-bottom flex-wrap">
-    <ol class="dates-and-times">
+    <ol class="plain dates-and-times">
         <li>
             <time class="date" datetime="{{ page.date | date_to_xmlschema }}">
                 {% if page.date-migrated or page.date-edit %}Originally posted{% else %}Posted{% endif %} {{ page.date | date: "%F (a %A) at %R %Z" }}
@@ -36,14 +34,24 @@ layout: default
         {% endif %}
     </ol>
 
-    <ol class="plain inline-list">
+    <footer class="oss-links">
         {% if page.original-url %}
-        <li><a href="{{ page.original-url }}" title="View Original" target="_blank" class="small material-icons button">import_contacts</a></li>
+        <a href="{{ page.original-url }}" title="View Original" target="_blank" class="small material-icons button">import_contacts</a>
         {% endif %}
-        <li><a href="https://github.com/BenLeggiero/blog/commits/master/{{ page.path }}" title="Post History" target="_blank" class="small material-icons button">history</a></li>
-        <li><a href="https://github.com/BenLeggiero/blog/edit/master/{{ page.path }}" title="Suggest an Edit" target="_blank" class="small material-icons button">edit</a></li>
-    </ol>
+        {% if site.source-code.url %}
+        {% case site.source-code.service %}
+            {% when "GitHub" %}
+                <a href="{{ site.source-code.url }}/commits/master/{{ page.path }}" title="Post History" target="_blank" class="low-emphasis button"><i class="material-icons">history</i> <span>History</span></a>
+                <a href="{{ site.source-code.url }}/edit/master/{{ page.path }}" title="Suggest an Edit" target="_blank" class="low-emphasis button"><i class="material-icons">edit</i> <span>Suggest an Edit</span></a>
+
+            {% else %}
+                <!--
+                This version of Neon Jekyll Layouts doesn't support {{ site.source-code.service }} repos.
+                If you're on the latest version and nobody's reported this yet, you can see if someone's reported
+                this yet: https://github.com/BlueHuskyStudios/Neon-Jekyll-Layouts/issues
+                -->
+        {% endcase %}
+        {% endif %}
+    </footer>
 </footer>
 </article>
-
-{% include disqus.html %}
