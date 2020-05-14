@@ -6,19 +6,16 @@ figured I should think of a generalized solution that'll work going forward.
 
 {%- endcomment -%}
 {%- if page.app-bar.trailing-control.target -%}
-    {%- capture app-bar-trailing-control-url -%}
-        {%- case page.app-bar.trailing-control.target -%}
-            {%- when 'github' -%}
+    {%- case page.app-bar.trailing-control.target -%}
+        {%- when 'github' -%}
+            {%- capture app-bar-trailing-control-url -%}
                 https://GitHub.com/{{ site.social.github }}
-        {%- endcase -%}
-    {%- endcapture -%}
-
-    {%- capture app-bar-trailing-control-icon -%}
-        {%- case page.app-bar.trailing-control.target -%}
-            {%- when 'github' -%}
+            {%- endcapture -%}
+            {%- capture app-bar-trailing-control-icon -%}
                 <i class="fab fa-github fa-2x"></i>
-        {%- endcase -%}
-    {%- endcapture -%}
+            {%- endcapture -%}
+    {%- endcase -%}
+
 {%- endif -%}
 
 
@@ -47,7 +44,9 @@ sites like this! Neon is a theme I (Ben Leggiero) invented, which is heavily ins
 tweaked it for my needs, and is written in plain CSS as much as possible.
 
 If you want to browse through all the current source code or see the history, check these out:
+ - Neon Jekyll Basics: https://github.com/BlueHuskyStudios/Neon-Jekyll-Basics
  - Neon Jekyll Layouts: https://github.com/BlueHuskyStudios/Neon-Jekyll-Layouts
+ - Neon Jekyll Components: https://github.com/BlueHuskyStudios/Neon-Jekyll-Components
  - Neon: https://github.com/BlueHuskyStudios/stylesheets/tree/master/assets/v2/neon
 
 Since I wrote Neon from scratch, I decided to place it under the BH-1-PS license:
@@ -71,12 +70,12 @@ wrote the original 😉
 
 <body>
 <header class="app-bar">
-    {% if page.nav-button-kind == 'back' -%}
-    <a href="/" class="flat button   back-to-root-link">{% if page.nav-button-kind == 'back' %}<i class="material-icons    back-to-root-icon">arrow_back</i>{% endif %}</a>
-    <h1 class="title"><span class="title-text">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</span></h1>
-    {%- else -%}
+    {%- if page.nav-button-kind == 'sidebar' or page.sidebar or site.sidebar %}
     <a href="#" class="flat button show-sidebar-button" onclick="return false;"><i class="material-icons">menu</i></a>
     <a href="/" class="flat button   back-to-root-link"><h1 class="title"><span class="title-text">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</span></h1></a>
+    {%- else -%}
+    <a href="/" class="flat button   back-to-root-link"><i class="material-icons    back-to-root-icon">arrow_back</i></a>
+    <h1 class="title"><span class="title-text">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</span></h1>
     {%- endif %}
 
     {%- if page.app-bar.trailing-control.kind == 'link' %}

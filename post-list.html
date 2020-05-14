@@ -5,7 +5,7 @@ layout: default
 {{ content }}
 
 <div class="posts   link-style-underline-on-hover   flex-row flex-wrap flex-horiz-stretch flex-horiz-center">
-    {% for post in site.posts %}
+    {%- for post in site.posts %}
     {% if post.categories contains 'Separator' %}
     <article class="post separator">
         <h1>{{ post.title }}</h1>
@@ -13,40 +13,40 @@ layout: default
             {{ post.excerpt }}
         </div>
     </article>
-    {% else %}
+    {%- else %}
     <article class="post   flex-column flex-vert-space-between   card">
         <section>
             <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
 
-            {% if post.categories contains 'Micro' %}
             <div class="entry">
+            {%- if post.categories contains 'Micro' %}
                 {{ post.content }}
-            </div>
-            {% else %}
-            <div class="entry">
+            {%- else %}
                 {{ post.excerpt }}
+            {%- endif %}
             </div>
-            {% endif %}
         </section>
 
-        <footer class="flex-row flex-horiz-space-between flex-vert-center">
-            <time class="date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%a. %F at %R" }}</time>
+        <footer class="flex-row flex-wrap flex-horiz-space-around flex-vert-center">
+            {{ post.date | jsonify }}
+            <time class="date" datetime="{{ post.date.published | date_to_xmlschema }}">{{ post.date.published | date: "%a. %F at %R" }}</time>
 
             <ol class="chips   plain   flex-row flex-wrap flex-horiz-center flex-vert-center">
-                {% for category in post.categories %}
-                {% if category == 'Migrated' or category == 'Essay' %}
+                {%- for category in post.categories %}
+                {%- if site.post-list.categories-to-display contains category %}
                 <li><span class="chip" disabled data-category-name="{{ category }}">{{ category }}</span></li>
-                {% endif %}
-                {% endfor %}
+                {%- endif %}
+                {%- endfor %}
             </ol>
 
-            {% unless post.categories contains 'Micro' %}
-            <a href="{{ site.baseurl }}{{ post.url }}" class="small low-emphasis button">Get the recipe!</a>
-            {% else %}
+            {%- unless post.categories contains 'Micro' %}
+            <a href="{{ site.baseurl }}{{ post.url }}" class="small low-emphasis button">{{ page.read-more-button-text | default: "Read More" }}</a>
+            {%- else %}
             <span class="placeholder"></span>
-            {% endunless %}
+            {%- endunless %}
         </footer>
     </article>
     {% endif %}
-    {% endfor %}
+
+    {%- endfor %}
 </div>

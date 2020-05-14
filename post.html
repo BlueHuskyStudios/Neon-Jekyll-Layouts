@@ -14,21 +14,21 @@ layout: default
 
     <ol class="plain dates-and-times">
         <li>
-            <time class="date" datetime="{{ page.date | date_to_xmlschema }}">
-                {% if page.date-migrated or page.date-edit %}Originally posted{% else %}Posted{% endif %} {{ page.date | date: "%F (a %A) at %R %Z" }}
+            <time class="date" datetime="{{ page.date.published | date_to_xmlschema }}">
+                {% if page.date.migrated or page.date.modified %}Originally posted{% else %}Posted{% endif %} {{ page.date | date: "%F (a %A) at %R %Z" }}
             </time>
         </li>
-        {% if page.date-migrated %}
+        {% if page.date.migrated %}
         <li>
             <time class="date" datetime="{{ page.date-migrated | date_to_xmlschema }}">
-                Migrated {{ page.date-migrated | date: "%F (a %A) at %R %Z" }}
+                Migrated {{ page.date.migrated | date: "%F (a %A) at %R %Z" }}
             </time>
         </li>
         {% endif %}
-        {% if page.date-edit %}
+        {% if page.date.modified %}
         <li>
             <time class="date" datetime="{{ page.date-edit | date_to_xmlschema }}">
-                Updated {{ page.date-edit | date: "%F (a %A) at %R %Z" }}
+                Updated {{ page.date.modified | date: "%F (a %A) at %R %Z" }}
             </time>
         </li>
         {% endif %}
