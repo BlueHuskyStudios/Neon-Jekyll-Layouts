@@ -28,8 +28,7 @@ layout: default
         </section>
 
         <footer class="flex-row flex-wrap flex-horiz-space-around flex-vert-center">
-            {{ post.date | jsonify }}
-            <time class="date" datetime="{{ post.date.published | date_to_xmlschema }}">{{ post.date.published | date: "%a. %F at %R" }}</time>
+            <time class="date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%a. %F at %R" }}</time>
 
             <ol class="chips   plain   flex-row flex-wrap flex-horiz-center flex-vert-center">
                 {%- for category in post.categories %}

@@ -101,10 +101,10 @@ wrote the original 😉
     </section>
 
     <aside class="text-center">
-        {% if page.date.modified %}
-        Last tweaked <time datetime="{{ page.date.modified | date_to_xmlschema }}">{{ page.date.modified | date: "%F (a %A) at %R %Z" }}</time>
-        {% elsif page.date.published %}
-        Created <time datetime="{{ page.date.published | date_to_xmlschema }}">{{ page.date.published | date: "%F (a %A) at %R %Z" }}</time>
+        {% if page.date-modified %}
+        Last tweaked <time datetime="{{ page.date-modified | date_to_xmlschema }}">{{ page.date-modified | date: "%F (a %A) at %R %Z" }}</time>
+        {% elsif page.date %}
+        Created <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%F (a %A) at %R %Z" }}</time>
         {% endif %}
     </aside>
 </footer>
