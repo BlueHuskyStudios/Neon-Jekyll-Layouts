@@ -3,10 +3,10 @@ layout: default
 ---
 {%- unless page.app-bar.remove or site.app-bar.remove -%}
 {%- assign app-bar-title = page.app-bar.title | default: site.name -%}
-{%- assign app-bar-aubtitle = page.app-bar.subtitle | default: page.subtitle -%}
+{%- assign app-bar-subtitle = page.app-bar.subtitle | default: page.subtitle -%}
 {%- include Neon-Jekyll-Components/App-Bar/app-bar.html
     title=app-bar-title
-    subtitle=subtitle
+    subtitle=app-bar-subtitle
 -%}
 {%- endunless -%}
 
