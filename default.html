@@ -31,6 +31,15 @@ figured I should think of a generalized solution that'll work going forward.
         This site was made by:
         {{ site.author }}
     {%- endif %}
+{%- elsif site.authors -%}
+    {%- assign number-of-site-authors = site.authors | size -%}
+    {%- if number-of-site-authors == 1 -%}
+        {%- assign author = site.authors | first -%}
+        This site was made by {{ author.name }}
+    {%- else %}
+This site was made by:
+- {{ site.authors | map: "name" | join: "\n- " }}
+    {%- endif %}
 {%- endif %}
 {% if site.source-code.url %}
 If you want to check out the actual source code of this site, it's published at

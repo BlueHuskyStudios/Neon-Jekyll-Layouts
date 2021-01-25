@@ -1,10 +1,10 @@
 ---
 layout: default
 ---
-{%- unless page.app-bar.remove | default: site.app-bar.remove -%}
+{%- unless page.app-bar.remove or site.app-bar.remove -%}
 {%- assign app-bar-title = page.app-bar.title | default: site.name -%}
 {%- assign app-bar-aubtitle = page.app-bar.subtitle | default: page.subtitle -%}
-{%- include Neon-Jekyll-Components/App-Bar/app-bar
+{%- include Neon-Jekyll-Components/App-Bar/app-bar.html
     title=app-bar-title
     subtitle=subtitle
 -%}
@@ -23,7 +23,7 @@ layout: default
         {{ site.url }}{{ page.url }}
     </section>
 
-    {%- if page.date-modified | default: page.date %}
+    {%- if page.date-modified or page.date %}
 
     <aside class="text-center">
         {%- if page.date-modified %}
