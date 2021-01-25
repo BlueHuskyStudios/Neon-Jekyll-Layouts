@@ -69,30 +69,8 @@ wrote the original 😉
 </head>
 
 <body>
-<header class="app-bar">
-    {%- if page.nav-button-kind == 'sidebar' or page.sidebar or site.sidebar %}
-    <a href="#" class="flat button show-sidebar-button" onclick="return false;"><i class="material-icons">menu</i></a>
-    <a href="/" class="flat button   back-to-root-link"><h1 class="title"><span class="title-text">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</span></h1></a>
-    {%- else -%}
-    <a href="/" class="flat button   back-to-root-link"><i class="material-icons    back-to-root-icon">arrow_back</i></a>
-    <h1 class="title"><span class="title-text">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</span></h1>
-    {%- endif %}
 
-    {%- if page.app-bar.trailing-control.kind == 'link' %}
-    <a href="{{ app-bar-trailing-control-url }}" class="button back-to-root-link">{{ app-bar-trailing-control-icon }}</a>
-    {%- elsif page.app-bar.trailing-control.kind == 'menu' %}
-    Menus not yet supported
-    {%- else %}
-    <span class="layout-placeholder"></span>
-    {%- endif %}
-</header>
-
-
-
-<main id="main" role="main" class="container">
 {{ content }}
-</main>
-
 
 
 <footer class="centered  widest-desktop-small">

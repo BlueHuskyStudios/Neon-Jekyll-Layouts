@@ -1,0 +1,43 @@
+---
+layout: default
+---
+{%- unless page.app-bar.remove | default: site.app-bar.remove -%}
+{%- assign app-bar-title = page.app-bar.title | default: site.name -%}
+{%- assign app-bar-aubtitle = page.app-bar.subtitle | default: page.subtitle -%}
+{%- include Neon-Jekyll-Components/App-Bar/app-bar
+    title=app-bar-title
+    subtitle=subtitle
+-%}
+{%- endunless -%}
+
+
+
+<main id="main" role="main" class="container">
+{{ content }}
+</main>
+
+
+
+<footer class="centered  widest-desktop-small">
+    <section class="show-print text-centered">
+        {{ site.url }}{{ page.url }}
+    </section>
+
+    {%- if page.date-modified | default: page.date %}
+
+    <aside class="text-center">
+        {%- if page.date-modified %}
+        Last tweaked <time datetime="{{ page.date-modified | date_to_xmlschema }}">{{ page.date-modified | date: "%F (a %A) at %R %Z" }}</time>
+        {%- endif %}
+        {%- if page.date %}
+        Created <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%F (a %A) at %R %Z" }}</time>
+        {%- endif %}
+    </aside>
+    {%- endif %}
+</footer>
+
+
+
+{% include Neon-Jekyll-Components/Sidebar/sidebar.html %}
+</body>
+</html>
