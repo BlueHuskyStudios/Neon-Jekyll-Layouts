@@ -18,6 +18,13 @@ layout: general
         <section>
             <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
 
+            {%- if post.content-warning %}
+            {% include content-warning.html
+                message=post.content-warning
+                compact=true
+                %}
+            {%- endif %}
+
             <div class="entry">
             {%- if post.categories contains 'Micro' %}
                 {{ post.content }}
