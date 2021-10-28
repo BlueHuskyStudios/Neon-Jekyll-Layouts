@@ -45,7 +45,8 @@ layout: general
 
             <ol class="chips   plain   flex-row flex-wrap flex-horiz-center flex-vert-center">
                 {%- for category in post.categories %}
-                {%- if site.post-list.categories-to-display contains category %}
+                {%- if site.post-list.categories-to-display contains category
+                    or site.post-list.display-all-categories %}
                 <li><span class="chip" disabled data-category-name="{{ category }}">{{ category }}</span></li>
                 {%- endif %}
                 {%- endfor %}
