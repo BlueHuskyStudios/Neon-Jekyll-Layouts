@@ -67,7 +67,7 @@ wrote the original 😉
 
 -->
 <!DOCTYPE html>
-<html class="brightness-dark{%- if page.html-classes %} {{ page.html-classes }} {%- endif -%}">
+<html class="{{ site.default-theme.brightness | default: 'brightness-dark' }} {%- if page.html-classes %} {{ page.html-classes }} {%- endif -%}">
 <head>
 {% include Neon-Jekyll-Basics/header-meta.html %}
 
