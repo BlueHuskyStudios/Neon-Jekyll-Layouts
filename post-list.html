@@ -2,10 +2,60 @@
 layout: general
 ---
 
+{%- assign posts = site.posts %}
+
+{{ posts | map: "title" | jsonify }}
+
+<!-- --- -->
+
+{%- if site.post-list.sort-by %}
+    {%- assign sort-fields = site.post-list.sort-by | reverse %}
+
+    {%- for sort-field-holder in sort-fields %}
+
+        {{ sort-field[0] }}
+
+        {%- comment %}
+        {%- assign sort-field = sort-field[0] %}
+        {%- if sort-field-holder.direction %}
+        {%- elsif sort-field-holder.descending %}
+            {%- assign sort-field = sort-field-holder.descending %}
+        {%- else %}
+            {%- assign sort-field = sort-field-holder %}
+        {%- endif %}
+
+        {%- if sort-field-holder.descending %}
+            {%- assign sort-type = "descending" %}
+        {%- else %}
+            {%- assign sort-type = "ascending" %}
+        {%- endif %}
+
+        {%- if sort-field-holder.backup %}
+            {%- assign sort-field-backup = sort-field-holder.backup %}
+        {%- endif %}
+
+
+        {%- for post in posts %}
+            {%- unless post[sort-field] %}
+                {%- if sort-field-backup %}
+                    {%- assign post[sort-field] = post[sort-field-backup] %}
+                {%- endif %}
+            {%- endunless %}
+        {%- endfor %}
+
+        {%- if sort-type == "ascending" %}
+            {%- assign posts = posts | sort: sort-field | reverse %}
+        {%- else %}
+            {%- assign posts = posts | sort: sort-field %}
+        {%- endif %}
+        {%- endcomment %}
+    {%- endfor %}
+{%- endif %}
+
 {{ content }}
 
 <div class="posts   link-style-underline-on-hover   flex-row flex-wrap flex-horiz-stretch flex-horiz-center flex-vert-top">
-    {%- for post in site.posts %}
+    {%- for post in posts %}
     {% if post.categories contains 'Separator' %}
     <article class="post separator">
         <h1>{{ post.title }}</h1>
@@ -41,7 +91,12 @@ layout: general
         </section>
 
         <footer class="flex-row flex-wrap flex-horiz-space-between flex-vert-center">
-            <time class="date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%a. %F at %R" }}</time>
+            <ol class="plain">
+                <li><time class="date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%a. %F at %R" }}</time></li>
+                {%- if post.date-edit %}
+                <li><time class="date date-edit" datetime="{{ post.date-edit | date_to_xmlschema }}">Updated {{ post.date-edit | date: "%a. %F at %R" }}</time></li>
+                {%- endif %}
+            </ol>
 
             <ol class="chips   plain   flex-row flex-wrap flex-horiz-center flex-vert-center">
                 {%- for category in post.categories %}
