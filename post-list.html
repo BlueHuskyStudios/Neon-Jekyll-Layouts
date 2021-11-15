@@ -4,51 +4,47 @@ layout: general
 
 {%- assign posts = site.posts %}
 
-{{ posts | map: "title" | jsonify }}
+Before:
+{%- include __test__print-post-list.html posts=posts %}
 
 <!-- --- -->
 
 {%- if site.post-list.sort-by %}
     {%- assign sort-fields = site.post-list.sort-by | reverse %}
 
+    {{ sort-fields | jsonify }}
+
     {%- for sort-field-holder in sort-fields %}
 
-        {{ sort-field[0] }}
+        Sort field holder: {{ sort-field-holder }}
 
-        {%- comment %}
-        {%- assign sort-field = sort-field[0] %}
-        {%- if sort-field-holder.direction %}
-        {%- elsif sort-field-holder.descending %}
-            {%- assign sort-field = sort-field-holder.descending %}
-        {%- else %}
-            {%- assign sort-field = sort-field-holder %}
-        {%- endif %}
+        {%- assign sort-field = sort-field-holder.field %}
+        Sort field: {{ sort-field }}
 
-        {%- if sort-field-holder.descending %}
-            {%- assign sort-type = "descending" %}
-        {%- else %}
-            {%- assign sort-type = "ascending" %}
-        {%- endif %}
+        {%- assign sort-type  = sort-field-holder.direction | default: "descending" %}
+        {%- assign sort-field = sort-field-holder.field %}
 
-        {%- if sort-field-holder.backup %}
-            {%- assign sort-field-backup = sort-field-holder.backup %}
-        {%- endif %}
+        {%- assign sort-field-backup = sort-field-holder.backup %}
 
 
         {%- for post in posts %}
-            {%- unless post[sort-field] %}
-                {%- if sort-field-backup %}
-                    {%- assign post[sort-field] = post[sort-field-backup] %}
-                {%- endif %}
-            {%- endunless %}
-        {%- endfor %}
+            {{ post[sort-field] | default: post[sort-field-backup] }}
+            {%- assign post.mysort = post[sort-field] | default: post[sort-field-backup] %}
+            Sort field for this post is {{ post.mysort | jsonify }}
 
+
+        {% endfor %}
+
+        {%- comment %}
         {%- if sort-type == "ascending" %}
-            {%- assign posts = posts | sort: sort-field | reverse %}
+            {%- assign posts = posts | sort: "mysort" | reverse %}
         {%- else %}
-            {%- assign posts = posts | sort: sort-field %}
+            {%- assign posts = posts | sort: "mysort" %}
         {%- endif %}
         {%- endcomment %}
+
+Sort step {{ forloop.index }} ({{ sort-field }}):
+{%- include __test__print-post-list.html posts=posts %}
     {%- endfor %}
 {%- endif %}
 
