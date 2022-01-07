@@ -15,8 +15,10 @@ figured I should think of a generalized solution that'll work going forward.
                 <i class="fab fa-github fa-2x"></i>
             {%- endcapture -%}
     {%- endcase -%}
-
 {%- endif -%}
+
+
+{%- assign app-bar-position = page.app-bar.position | default: site.app-bar.position | default: layout.app-bar.position -%}
 
 
 
@@ -67,7 +69,11 @@ wrote the original 😉
 
 -->
 <!DOCTYPE html>
-<html class="{{ site.default-theme.brightness | default: 'brightness-dark' }} {%- if page.html-classes %} {{ page.html-classes }} {%- endif -%}">
+<html class="
+{{- site.default-theme.brightness | default: 'brightness-dark' -}}
+{%- if page.html-classes %} {{ page.html-classes }} {%- endif -%}
+{%- if app-bar-position %} app-bar-position-{{ app-bar-position }} {%- endif -%}
+">
 <head>
 {% include Neon-Jekyll-Basics/header-meta.html %}
 
