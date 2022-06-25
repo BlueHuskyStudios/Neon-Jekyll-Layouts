@@ -5,6 +5,8 @@ bar. So far I've just got GitHub, but since I'd like to push this as a generaliz
 figured I should think of a generalized solution that'll work going forward.
 
 {%- endcomment -%}
+
+
 {%- if page.app-bar.trailing-control.target -%}
     {%- case page.app-bar.trailing-control.target -%}
         {%- when 'github' -%}
@@ -19,6 +21,7 @@ figured I should think of a generalized solution that'll work going forward.
 
 
 {%- assign app-bar-position = page.app-bar.position | default: site.app-bar.position | default: layout.app-bar.position -%}
+{%- assign exclude-sidebar = page.sidebar.exclude | default: site.sidebar.exclude | default: layout.sidebar.exclude -%}
 
 
 
@@ -89,6 +92,8 @@ wrote the original 😉
 
 
 
-{% include Neon-Jekyll-Components/Sidebar/sidebar.html %}
+{% unless exclude-sidebar -%}
+    {% include Neon-Jekyll-Components/Sidebar/sidebar.html %}
+{%- endunless %}
 </body>
 </html>
