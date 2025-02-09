@@ -4,6 +4,10 @@ The bit of Liquid below is meant to be a way to simplify what icon goes in the t
 bar. So far I've just got GitHub, but since I'd like to push this as a generalized component, I
 figured I should think of a generalized solution that'll work going forward.
 
+Also, this requires the following to be used as a submodules in this repo:
+- https://github.com/BlueHuskyStudios/Neon-Jekyll-Basics      -  `_includes/Neon-Jekyll-Basics`
+- https://github.com/BlueHuskyStudios/Neon-Jekyll-Components  -  `_includes/Neon-Jekyll-Components`
+
 {%- endcomment -%}
 
 
@@ -17,10 +21,8 @@ figured I should think of a generalized solution that'll work going forward.
                 <i class="fab fa-github fa-2x"></i>
             {%- endcapture -%}
     {%- endcase -%}
+
 {%- endif -%}
-
-
-{%- assign app-bar-position = page.app-bar.position | default: site.app-bar.position | default: layout.app-bar.position -%}
 {%- assign exclude-sidebar = page.sidebar.exclude | default: site.sidebar.exclude | default: layout.sidebar.exclude -%}
 
 

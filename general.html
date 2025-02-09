@@ -10,7 +10,7 @@ layout: default
 {%- if exclude-main-element %}
 {{ content }}
 {%- else %}
-<main id="main" role="main" class="container">
+<main id="main" role="main" class="container {{ page.main-element-html-classes }}">
 {{ content }}
 </main>
 {%- endif %}
