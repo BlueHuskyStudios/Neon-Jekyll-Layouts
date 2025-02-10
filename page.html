@@ -6,6 +6,9 @@ layout: general
 {{ content }}
 
 
+{%- assign excludeFooterCard = page.footerCard.exclude | default: layout.footerCard.exclude | default: site.pages.all.footerCard.exclude %}
 
-{% include Neon-Jekyll-Components/Page-Info/footer-card.html %}
+{% unless excludeFooterCard %}
+{%- include Neon-Jekyll-Components/Page-Info/footer-card.html %}
+{%- endunless %}
 </article>
