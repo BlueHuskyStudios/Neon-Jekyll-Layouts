@@ -41,6 +41,20 @@ Also, this requires the following to be used as a submodules in this repo:
     {%- assign html-classes = nil -%}
 {%- endif -%}
 
+{%- assign body-classes = "" | split: "" -%}
+{%- if page.body-classes.first -%}
+    {%- assign body-classes = body-classes | concat: page.body-classes -%}
+{%- endif -%}
+{%- if layout.body-classes.first -%}
+    {%- assign body-classes = body-classes | concat: layout.body-classes -%}
+{%- endif -%}
+{%- if site.page-body-classes.first -%}
+    {%- assign body-classes = body-classes | concat: site.page-body-classes -%}
+{%- endif -%}
+{%- if body-classes.size <= 0 %}
+    {%- assign body-classes = nil -%}
+{%- endif -%}
+
 
 <!--
 
@@ -91,7 +105,7 @@ wrote the original 😉
 <!DOCTYPE html>
 <html class="
 {{- site.default-theme.brightness | default: 'brightness-dark' -}}
-{%- if html-classes %} {{ html-classes | join: " " }} {%- endif -%}
+{%- if html-classes %} {{ html-classes | join: ' ' }} {%- endif -%}
 {%- if app-bar-position %} app-bar-position-{{ app-bar-position }} {%- endif -%}
 ">
 <head>
@@ -103,7 +117,7 @@ wrote the original 😉
 <!-- See also the git repository at {{ site.git-url | default: "https://github.com/BlueHuskyStudios/Neon-Jekyll-Layouts" }} -->
 </head>
 
-<body>
+<body {%- if body-classes %} class="{{ body-classes | join: ' ' }}" {%- endif -%}>
 
 {{ content }}
 
