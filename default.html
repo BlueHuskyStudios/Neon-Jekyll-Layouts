@@ -11,6 +11,7 @@ Also, this requires the following to be used as a submodules in this repo:
 {%- endcomment -%}
 
 
+
 {%- if page.app-bar.trailing-control.target -%}
     {%- case page.app-bar.trailing-control.target -%}
         {%- when 'github' -%}
@@ -23,8 +24,22 @@ Also, this requires the following to be used as a submodules in this repo:
     {%- endcase -%}
 
 {%- endif -%}
+
 {%- assign exclude-sidebar = page.sidebar.exclude | default: site.sidebar.exclude | default: layout.sidebar.exclude -%}
 
+{%- assign html-classes = "" | split: "" -%}
+{%- if page.html-classes.first -%}
+    {%- assign html-classes = html-classes | concat: page.html-classes -%}
+{%- endif -%}
+{%- if layout.html-classes.first -%}
+    {%- assign html-classes = html-classes | concat: layout.html-classes -%}
+{%- endif -%}
+{%- if site.page-html-classes.first -%}
+    {%- assign html-classes = html-classes | concat: site.page-html-classes -%}
+{%- endif -%}
+{%- if html-classes.size <= 0 %}
+    {%- assign html-classes = nil -%}
+{%- endif -%}
 
 
 <!--
@@ -76,7 +91,7 @@ wrote the original 😉
 <!DOCTYPE html>
 <html class="
 {{- site.default-theme.brightness | default: 'brightness-dark' -}}
-{%- if page.html-classes %} {{ page.html-classes }} {%- endif -%}
+{%- if html-classes %} {{ html-classes | join: " " }} {%- endif -%}
 {%- if app-bar-position %} app-bar-position-{{ app-bar-position }} {%- endif -%}
 ">
 <head>
