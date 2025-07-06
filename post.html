@@ -2,7 +2,21 @@
 layout: general
 ---
 
-<article class="post">
+{%- assign article-classes = "" | split: "" -%}
+{%- if page.article-classes.first -%}
+    {%- assign article-classes = article-classes | concat: page.article-classes -%}
+{%- endif -%}
+{%- if layout.article-classes.first -%}
+    {%- assign article-classes = article-classes | concat: layout.article-classes -%}
+{%- endif -%}
+{%- if site.page-article-classes.first -%}
+    {%- assign article-classes = article-classes | concat: site.page-article-classes -%}
+{%- endif -%}
+{%- if article-classes.size <= 0 %}
+    {%- assign article-classes = nil -%}
+{%- endif -%}
+
+<article class="post   {%- if article-classes %} {{ article-classes | join: ' ' }} {%- endif -%}">
 {{ content }}
 
 
