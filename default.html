@@ -104,7 +104,7 @@ wrote the original 😉
 -->
 <!DOCTYPE html>
 <html class="
-{{- site.default-theme.brightness | default: 'brightness-dark' -}}
+brightness-{{- site.default-theme.brightness | default: 'dark' -}}
 {%- if html-classes %} {{ html-classes | join: ' ' }} {%- endif -%}
 {%- if app-bar-position %} app-bar-position-{{ app-bar-position }} {%- endif -%}
 ">
